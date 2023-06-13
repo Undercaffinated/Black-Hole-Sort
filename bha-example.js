@@ -1,11 +1,8 @@
-// Task: Create a generic sorting algorithm with O(n) time complexity, disproving that one dude's mathematically sound proof that it cannot be done.
-
-// Step 1: Accept an array as input.
+// Accept an array as input.
 const sourceArray = [15, -2, 47, 11, 3, 4, 6, 8];
 const arraySize = sourceArray.length;
-// Step 2: Convert to comparable form (But I'm not going to here).
 
-// Step 2: Create variables
+// Create variables
 const nodeArray = new Array(arraySize - 1);
 const workingArray = new Array(arraySize);
 let positiveWrites = 1;
@@ -17,7 +14,7 @@ function node(value, distance, markForDeletion) {
   this.markForDeletion = markForDeletion;
 }
 
-// Step 3: For each element in sourceArray, create a node in nodeArray.
+// For each element in sourceArray, create a node in nodeArray.
 // Note: We are intentionally omitting the first element of sourceArray.
 for (let i = 1; i < sourceArray.length; i++) {
   nodeArray[i - 1] = new node(
@@ -27,7 +24,7 @@ for (let i = 1; i < sourceArray.length; i++) {
   );
 }
 
-// Step 5: Write Origin Value to workingArray.
+// Write Origin Value to workingArray.
 workingArray[0] = sourceArray[0];
 
 // Step 6: Implement Black Hole Algorithm.
