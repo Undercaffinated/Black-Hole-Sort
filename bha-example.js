@@ -29,8 +29,9 @@ workingArray[0] = sourceArray[0];
 
 // Graph Reduction Loop
 while (nodeArray[0] !== undefined) {
+  let smallestAbsoluteDistance = Infinity;
   for (let i = 0; i < nodeArray.length; i++) {
-    if (nodeArray[i].distance === 1) {
+    if (nodeArray[i].distance === 1 || nodeArray[i] === 0) {
       workingArray[positiveWrites] = nodeArray[i].value;
       ++positiveWrites;
       nodeArray[i].markForDeletion = true;
@@ -38,16 +39,23 @@ while (nodeArray[0] !== undefined) {
       workingArray[arraySize - 1 - negativeWrites] = nodeArray[i].value;
       ++negativeWrites;
       nodeArray[i].markForDeletion = true;
-    } else if (nodeArray[i].distance > 1) {
-      --nodeArray[i].distance;
-    } else if (nodeArray[i].distance < -1) {
-      ++nodeArray[i].distance;
+    } else if (Math.abs(nodeArray[i].distance < smallestAbsoluteDistance)) {
+      smallestAbsoluteDistance = Math.abs(nodeArray[i].distance);
     }
   }
 
   for (let i = nodeArray.length - 1; i > -1; i--) {
     if (nodeArray[i].markForDeletion === true) {
       nodeArray.splice(i, 1);
+    }
+  }
+
+  // Reduce the absolute distances of the remaining elements
+  for (let i = 0; i < nodeArray.length; i++) {
+    if (nodeArray[i].value > 0) {
+      nodeArray[i].value -= smallestAbsoluteDistance;
+    } else if (nodeArray[i].value < 0) {
+      nodeArray[i].value += smallestAbsoluteDistance;
     }
   }
 }
