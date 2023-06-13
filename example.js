@@ -42,18 +42,9 @@ for (let i = nodeArray.length - 1; i > -1; i--) {
   }
 }
 
-for (let i = 0; i < nodeArray.length; i++) {
-  console.log(
-    "Node Array Element " + i + ": " + "Value: " + nodeArray[i].value +
-      "Distance: " + nodeArray[i].distance,
-  );
-}
-
 // Graph Reduction Loop
 while (nodeArray[0] !== undefined) {
   let smallestAbsoluteDistance = Infinity;
-  console.log("Node Array Length: " + nodeArray.length);
-
   // Write out nodes with distance of 1 or -1
   for (let i = 0; i < nodeArray.length; i++) {
     if (nodeArray[i].distance === 1) {
@@ -67,7 +58,6 @@ while (nodeArray[0] !== undefined) {
     } // Check if smallestAbsoluteDistance Should be reduced. If so, do it.
     else if (Math.abs(nodeArray[i].distance) < smallestAbsoluteDistance) {
       smallestAbsoluteDistance = Math.abs(nodeArray[i].distance);
-      console.log(smallestAbsoluteDistance);
     }
   }
 
