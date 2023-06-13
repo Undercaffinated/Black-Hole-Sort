@@ -6,7 +6,7 @@ const arraySize = sourceArray.length;
 const nodeArray = new Array(arraySize - 1);
 const workingArray = new Array(arraySize);
 let positiveWrites = 1;
-let negativeWrites = 1;
+let negativeWrites = 0;
 
 function node(value, distance, markForDeletion) {
   this.value = value;
@@ -27,7 +27,7 @@ for (let i = 1; i < sourceArray.length; i++) {
 // Write Origin Value to workingArray.
 workingArray[0] = sourceArray[0];
 
-// Step 6: Implement Black Hole Algorithm.
+// Graph Reduction Loop
 while (nodeArray[0] !== undefined) {
   for (let i = 0; i < nodeArray.length; i++) {
     if (nodeArray[i].distance === 1) {
@@ -35,7 +35,7 @@ while (nodeArray[0] !== undefined) {
       ++positiveWrites;
       nodeArray[i].markForDeletion = true;
     } else if (nodeArray[i].distance === -1) {
-      workingArray[arraySize - negativeWrites] = nodeArray[i].value;
+      workingArray[arraySize - 1 - negativeWrites] = nodeArray[i].value;
       ++negativeWrites;
       nodeArray[i].markForDeletion = true;
     } else if (nodeArray[i].distance > 1) {
@@ -51,8 +51,6 @@ while (nodeArray[0] !== undefined) {
     }
   }
 }
-
-negativeWrites--;
 
 // Step 6: Copy values from sourceArray to workingArray.
 for (let i = positiveWrites; i < arraySize; i++) {
