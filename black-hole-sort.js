@@ -1,31 +1,31 @@
 // Task: Create a generic sorting algorithm with O(n) time complexity, disproving that one dude's mathematically sound proof that it cannot be done.
 
 // Step 1: Accept an array as input.
-let sourceArray = [15, -2, 47, 11, 3, 4, 6, 8];
+const sourceArray = [15, -2, 47, 11, 3, 4, 6, 8];
 const arraySize = sourceArray.length;
 // Step 2: Convert to comparable form (But I'm not going to here).
 
 // Step 2: Create variables
-let nodeArray = new Array(arraySize - 1);
-let workingArray = new Array(arraySize); 
+const nodeArray = new Array(arraySize - 1);
+const workingArray = new Array(arraySize);
 let positiveWrites = 1;
 let negativeWrites = 1;
+
 function node(value, distance, markForDeletion) {
-  this.value = value; 
+  this.value = value;
   this.distance = distance;
-  this.markForDeletion = markForDeletion; 
+  this.markForDeletion = markForDeletion;
 }
 
 // Step 3: For each element in sourceArray, create a node in nodeArray.
 // Note: We are intentionally omitting the first element of sourceArray.
 for (let i = 1; i < sourceArray.length; i++) {
-    nodeArray[i - 1] = new node(
+  nodeArray[i - 1] = new node(
     sourceArray[i],
     sourceArray[i] - sourceArray[0],
-    markForDeletion = false
+    markForDeletion = false,
   );
 }
-
 
 // Step 5: Write Origin Value to workingArray.
 workingArray[0] = sourceArray[0];
@@ -39,19 +39,13 @@ while (nodeArray[0] !== undefined) {
       workingArray[positiveWrites] = nodeArray[i].value;
       ++positiveWrites;
       nodeArray[i].markForDeletion = true;
-    }
-
-    else if (nodeArray[i].distance === -1) {
+    } else if (nodeArray[i].distance === -1) {
       workingArray[arraySize - negativeWrites] = nodeArray[i].value;
       ++negativeWrites;
       nodeArray[i].markForDeletion = true;
-    }
-
-    else if (nodeArray[i].distance > 1) {
+    } else if (nodeArray[i].distance > 1) {
       --nodeArray[i].distance;
-    }
-
-    else if (nodeArray[i].distance < -1) {
+    } else if (nodeArray[i].distance < -1) {
       ++nodeArray[i].distance;
     }
   }
@@ -75,6 +69,5 @@ for (let i = positiveWrites; i < arraySize; i++) {
 for (let i = 0; i < positiveWrites; i++) {
   sourceArray[i + negativeWrites] = workingArray[i];
 }
-
 
 console.log(sourceArray);
