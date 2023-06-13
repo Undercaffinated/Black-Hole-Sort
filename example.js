@@ -42,9 +42,19 @@ for (let i = nodeArray.length - 1; i > -1; i--) {
   }
 }
 
+for (let i = 0; i < nodeArray.length; i++) {
+  console.log(
+    "Node Array Element " + i + ": " + "Value: " + nodeArray[i].value +
+      "Distance: " + nodeArray[i].distance,
+  );
+}
+
 // Graph Reduction Loop
 while (nodeArray[0] !== undefined) {
   let smallestAbsoluteDistance = Infinity;
+  console.log("Node Array Length: " + nodeArray.length);
+
+  // Write out nodes with distance of 1 or -1
   for (let i = 0; i < nodeArray.length; i++) {
     if (nodeArray[i].distance === 1) {
       workingArray[positiveWrites] = nodeArray[i].value;
@@ -54,25 +64,37 @@ while (nodeArray[0] !== undefined) {
       workingArray[arraySize - 1 - negativeWrites] = nodeArray[i].value;
       ++negativeWrites;
       nodeArray[i].markForDeletion = true;
-    } else if (Math.abs(nodeArray[i].distance < smallestAbsoluteDistance)) {
+    } // Check if smallestAbsoluteDistance Should be reduced. If so, do it.
+    else if (Math.abs(nodeArray[i].distance) < smallestAbsoluteDistance) {
       smallestAbsoluteDistance = Math.abs(nodeArray[i].distance);
+      console.log(smallestAbsoluteDistance);
     }
   }
 
+  smallestAbsoluteDistance--;
+
+  // Reduce the absolute distances of the remaining elements
+  for (let i = 0; i < nodeArray.length; i++) {
+    if (nodeArray[i].distance > 1) {
+      nodeArray[i].distance -= smallestAbsoluteDistance;
+    } else if (nodeArray[i].distance < -1) {
+      nodeArray[i].distance += smallestAbsoluteDistance;
+    }
+  }
+
+  // Remove nodes marked for deletion.
   for (let i = nodeArray.length - 1; i > -1; i--) {
     if (nodeArray[i].markForDeletion === true) {
       nodeArray.splice(i, 1);
     }
   }
-
-  // Reduce the absolute distances of the remaining elements
+  /*
   for (let i = 0; i < nodeArray.length; i++) {
-    if (nodeArray[i].value > 0) {
-      nodeArray[i].value -= smallestAbsoluteDistance;
-    } else if (nodeArray[i].value < 0) {
-      nodeArray[i].value += smallestAbsoluteDistance;
-    }
-  }
+    console.log(
+      "Node Array Element " + i + ": " + "Value: " + nodeArray[i].value +
+        "Distance: " + nodeArray[i].distance,
+    );
+  } */
 }
 
 // Copy values from sourceArray to workingArray.
