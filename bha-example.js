@@ -1,8 +1,8 @@
 // Accept an array as input.
 const sourceArray = [15, -2, 47, 11, 3, 4, 6, 8];
-const arraySize = sourceArray.length;
 
 // Create variables
+const arraySize = sourceArray.length;
 const nodeArray = new Array(arraySize - 1);
 const workingArray = new Array(arraySize);
 let positiveWrites = 1;
@@ -16,7 +16,7 @@ function node(value, distance, markForDeletion) {
 
 // For each element in sourceArray, create a node in nodeArray.
 // Note: We are intentionally omitting the first element of sourceArray.
-for (let i = 1; i < sourceArray.length; i++) {
+for (let i = 1; i < arraySize; i++) {
   nodeArray[i - 1] = new node(
     sourceArray[i],
     sourceArray[i] - sourceArray[0],
