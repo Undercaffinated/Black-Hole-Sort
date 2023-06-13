@@ -30,8 +30,6 @@ for (let i = 1; i < sourceArray.length; i++) {
 // Step 5: Write Origin Value to workingArray.
 workingArray[0] = sourceArray[0];
 
-console.log("Checkpoint A Works!");
-
 // Step 6: Implement Black Hole Algorithm.
 while (nodeArray[0] !== undefined) {
   for (let i = 0; i < nodeArray.length; i++) {
@@ -56,8 +54,6 @@ while (nodeArray[0] !== undefined) {
     }
   }
 }
-
-console.log("Checkpoint B Works");
 
 negativeWrites--;
 
