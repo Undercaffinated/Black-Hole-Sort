@@ -35,4 +35,4 @@ All of these variables contain only a number or counter. They usually serve as a
 1. Positive Writes (positiveWrites = 1). This value increments each time a node is identified with a distance of positive 1. Using the first element of the input array as Origin, this value, at the end of BHA, should be equal to the number of instances greater than or equal to the origin plus 1.
     *Side Note: Since the origin is written to the written array differently than every other value, positiveWrites must be initialized to 1.*
 
-2. Negative Writes (negativeWrites = 1). This value increments each time a node is identified by the BHA with a negative distance. Using the first element of the array as origin, this value, at the end fo BHA, should be equal to the number of instances within the input array with values less than the first element value.
+2. Negative Writes (negativeWrites = 0). This value increments each time a node is identified by the BHA with a negative distance. Using the first element of the array as origin, this value, at the end fo BHA, should be equal to the number of instances within the input array with values less than the first element value.
