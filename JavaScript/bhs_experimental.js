@@ -1,11 +1,15 @@
+// PARADIGM CHANGES
+// workingArray should not contain any instances of black holes. Instead, the number
+// of instances of black holes will be contained in a counting variable blackHoles. This
+// allows the nodeArray to have size arraySize - blackHoles, which may save on computations.f
+
 function bha(sourceArray) {
 
 // Create variables
 const arraySize = sourceArray.length;
-const nodeArray = new Array(arraySize - 1);
 const workingArray = new Array(arraySize);
-let positiveWrites = 1;
-let negativeWrites = 0;
+let blackHoleValue = sourceArray[0];
+let blackHoles = 0;
 
 function node(value, distance, markForDeletion) {
   this.value = value;
@@ -13,38 +17,44 @@ function node(value, distance, markForDeletion) {
   this.markForDeletion = markForDeletion;
 }
 
-// For each element in sourceArray, create a node in nodeArray.
-// Note: We are intentionally omitting the first element of sourceArray.
-for (let i = 1; i < arraySize; i++) {
-  nodeArray[i - 1] = new node(
-    sourceArray[i],
-    sourceArray[i] - sourceArray[0],
-    markForDeletion = false,
-  );
-}
-
-// Write Origin Value to workingArray.
-workingArray[0] = sourceArray[0];
-
-// Eliminate origin duplicates
-for (let i = 0; i < nodeArray.length; i++) {
-  if (nodeArray[i].distance === 0) {
-    workingArray[positiveWrites] = nodeArray[i].value;
-    positiveWrites++;
-    nodeArray[i].markForDeletion = true;
+// Write Black Hole and Equivalents to workingArray
+let leftptr = 0;
+for (let i = 0; i < arraySize; i++) {
+  if (sourceArray[i] === blackHoleValue) {
+    workingArray[leftptr] = blackHoleValue;
+    blackHoles++;
+    leftptr++;
   }
 }
 
-for (let i = nodeArray.length - 1; i > -1; i--) {
-  if (nodeArray[i].markForDeletion === true) {
-    nodeArray.splice(i, 1);
-  }
+// Since we know how many times the black hole element appears, we can reduce the size
+// of nodeArray before it is created, saving unnecessary node creations.
+const nodeArraySize = arraySize - blackHoles;
+const nodeArray = new Array(nodeArraySize);
+
+// For each non black hole element in sourceArray, create a node in nodeArray.
+leftptr = 0;
+for (let i = 0; i < arraySize; i++) {
+  if (sourceArray[i] !== blackHoleValue) {
+    nodeArray[leftptr] = new node(
+        sourceArray[i],
+        sourceArray[i] - sourceArray[0],
+        markForDeletion = false,
+    )
+        leftptr++;
+    };
 }
+
 
 // Graph Reduction Loop
+// Recall that there have already been blackHole number of writes to the left of
+// workingArray. Therefore, set the positiveWrites value equal to blackHoles.
+let positiveWrites = blackHoles;
+let negativeWrites = 0;
 while (nodeArray[0] !== undefined) {
   let smallestAbsoluteDistance = Infinity;
-  // Write out nodes with distance of 1 or -1
+
+  // Write node values to workingArray whose node distances are 1 or -1:
   for (let i = 0; i < nodeArray.length; i++) {
     if (nodeArray[i].distance === 1) {
       workingArray[positiveWrites] = nodeArray[i].value;
@@ -54,7 +64,9 @@ while (nodeArray[0] !== undefined) {
       workingArray[arraySize - 1 - negativeWrites] = nodeArray[i].value;
       ++negativeWrites;
       nodeArray[i].markForDeletion = true;
-    } // Check if smallestAbsoluteDistance Should be reduced. If so, do it.
+    } 
+    
+    // Check if smallestAbsoluteDistance should be reduced. If so, do it.
     else if (Math.abs(nodeArray[i].distance) < smallestAbsoluteDistance) {
       smallestAbsoluteDistance = Math.abs(nodeArray[i].distance);
     }
@@ -79,13 +91,16 @@ while (nodeArray[0] !== undefined) {
   }
 }
 
-// Copy values from sourceArray to workingArray.
+// Copy values from workingArray to sourceArray
 // First, write the values that were less than the origin.
 for (let i = positiveWrites; i < arraySize; i++) {
   sourceArray[i - positiveWrites] = workingArray[i];
 }
+console.log(sourceArray);
 
-// Second, write the values that were greater than or equal to the origin.
+console.log(positiveWrites);
+console.log(sourceArray);
+// Third, write the values that were greater than or equal to the origin.
 for (let i = 0; i < positiveWrites; i++) {
   sourceArray[i + negativeWrites] = workingArray[i];
 }
@@ -93,6 +108,7 @@ for (let i = 0; i < positiveWrites; i++) {
 return sourceArray;
 }
 
-let sourceArray = bha([-98, 0, 5, 5, 5, 13, 26, 47, 9, 10]);
+let sourceArray = bha([-98, 0, 5, 5, 5, 13, -98, 26, 47, 9, -98, 10]);
 console.log(sourceArray);
+
 module.exports = bha;
