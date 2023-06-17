@@ -1,3 +1,5 @@
+// This code may have become depricated. For the most up to date version in your preferred language, go to the directory named with your preferred language.
+
 // Accept an array as input.
 const sourceArray = [15, 15, 15, 15, -2, 47, 11, 3, 4, 6, 8];
 
