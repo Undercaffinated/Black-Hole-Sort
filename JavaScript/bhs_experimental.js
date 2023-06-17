@@ -3,7 +3,7 @@
 // of instances of black holes will be contained in a counting variable blackHoles. This
 // allows the nodeArray to have size arraySize - blackHoles, which may save on computations.f
 
-function bha(sourceArray) {
+function bhs(sourceArray) {
 
 // Create variables
 const arraySize = sourceArray.length;
@@ -108,7 +108,4 @@ for (let i = 0; i < positiveWrites; i++) {
 return sourceArray;
 }
 
-let sourceArray = bha([-98, 0, 5, 5, 5, 13, -98, 26, 47, 9, -98, 10]);
-console.log(sourceArray);
-
-module.exports = bha;
+module.exports = bhs;

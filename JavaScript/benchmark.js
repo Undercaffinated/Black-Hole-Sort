@@ -1,6 +1,8 @@
 const fs = require('fs');
 const bha = require('./bha_benchable');
+const bhs = require('./bhs_experimental')
 const qs = require('./qs_benchable');
+const { it } = require('node:test');
 
 function measureExecutionTime(func, iterations) {
     const start = process.hrtime();
@@ -29,10 +31,10 @@ for (let i = 0; i < arraySize; i++) {
     testArray[i] = Math.floor((Math.random() - .5) * 2 * Math.pow(10, i%10));
 }
 
-console.log(testArray);
+let bha_elapsed = (measureExecutionTime(bha(testArray), iterations) / iterations);
+let bhs_elapsed = (measureExecutionTime(bhs(testArray), iterations) / iterations);
+let qs_elapsed = (measureExecutionTime(qs(testArray), iterations) / iterations);
 
-let bha_elapsed = measureExecutionTime(bha(testArray), iterations);
-let qs_elapsed = measureExecutionTime(qs(testArray), iterations);
-
-console.log(bha_elapsed);
-console.log(qs_elapsed);
+console.log("BHS_STABLE (s): ", bha_elapsed);
+console.log("BHA_EXPERIMENTAL (s): ", bhs_elapsed);
+console.log("QuickSort (s): ", qs_elapsed);
