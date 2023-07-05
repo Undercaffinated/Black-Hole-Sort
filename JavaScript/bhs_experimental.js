@@ -96,10 +96,10 @@ while (nodeArray[0] !== undefined) {
 for (let i = positiveWrites; i < arraySize; i++) {
   sourceArray[i - positiveWrites] = workingArray[i];
 }
-console.log(sourceArray);
+// console.log(sourceArray);
 
-console.log(positiveWrites);
-console.log(sourceArray);
+// console.log(positiveWrites);
+// console.log(sourceArray);
 // Third, write the values that were greater than or equal to the origin.
 for (let i = 0; i < positiveWrites; i++) {
   sourceArray[i + negativeWrites] = workingArray[i];

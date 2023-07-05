@@ -1,6 +1,6 @@
 # Navigation
 
-For all your reading needs, check out the docs folder. There you will find the high-level descriptions of how BHS works and whatever other documentation you might require.
+For all your reading needs, check out the docs folder. There you will find the high-level descriptions of how BHS works and whatever other documentation you might require. This is also where you can find a list of language-specific dependencies.
 
 For language-specific information, example code, and language-specific benchmarks, check out the folder titled with your preferred language. If the folder doesn't exist, then there is currently no support for your particular language.
 
