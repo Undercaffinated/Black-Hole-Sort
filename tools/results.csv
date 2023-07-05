@@ -1,0 +1,4 @@
+program, time (ms), number_of_elements, iterations
+BHS_STABLE, .04, 1000, 1
+BHS_EXPERIMENTAL, .02, 1000, 1
+QS, 0.07, 1000, 1
